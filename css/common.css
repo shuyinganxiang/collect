@@ -9,3 +9,8 @@ html {
     height: 100%;
     background-color: pink;
 }
+
+ul,
+li {
+    list-style: none;
+}
