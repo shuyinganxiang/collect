@@ -1,0 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    /* 让html的高度等于屏幕 */
+    height: 100%;
+    background-color: pink;
+}
