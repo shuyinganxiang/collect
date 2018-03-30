@@ -10,13 +10,14 @@
     <style>
         .bg {
             height: 100%;
-            background-color: rgb(7, 150, 42);
             overflow: hidden;
+            position: relative;
         }
         
         .bg ul {
             width: 500%;
             height: 100%;
+            /* margin-left: -100%; */
         }
         
         .bg ul li {
@@ -27,12 +28,33 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
+        
+        .bg .arrow {
+            height: 100%;
+        }
+        
+        .bg .arrow div {
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 40px;
+            color: #333;
+            float: left;
+            position: absolute;
+            top: 50%;
+        }
+        
+        .bg .arrow .right {
+            right: 0;
+        }
     </style>
 </head>
 
 <body>
     <div class="bg">
-        <ul>
+        <ul class="list">
             <li>11</li>
             <li>22</li>
             <li>33</li>
@@ -40,73 +62,49 @@
             <li>55</li>
         </ul>
         <div class="arrow">
-            <div class="left"> &lt;</div>
-            <div class="right"> &lg;</div>
+            <div class="left">&lt;</div>
+            <div class="right">&gt;</div>
         </div>
     </div>
 </body>
 <script type="text/javascript" src="../lib/jquery-3.3.1.js"></script>
 <script>
     $(function() {
+
+        // var index = 0;
+        // $(".left").click(function() {
+        //     index--;
+        //     if (index < 0) {
+        //         index = 0;
+        //     }
+        //     $(".list").css("margin-left", -index * 100 + "%");
+        // });
+        // $(".right").click(function() {
+        //     index++;
+        //     var liLength = $(".list").children().length;
+        //     if (index > liLength - 1) {
+        //         index = liLength - 1;
+        //     }
+        //     $(".list").css("margin-left", -index * 100 + "%");
+        // });
+        function turn(index) {
+            if (index < 0) {
+                index = 0;
+            } else if (index > liLength - 1) {
+                index = liLength - 1;
+            }
+            $(".list").css("margin-left", -index * 100 + "%");
+
+        }
         var index = 0;
-        $("left").onclick(function() {
+        $(".left").click(function() {
+            index--;
+            turn(index);
+        });
+        $(".right").click(function() {
             index++;
-
+            turn(index);
         });
-    });
-
-    // 参考
-    // (function($){  
-    $.fn.scrolls = function(options) {
-        //初始化参数  
-        var defaults = {
-            auto: false,
-            width: 160,
-            left: 15,
-            showLength: 4,
-            total: $(this).children().length - 1
-        }
-        var seter = $.extend(defaults, options || {});
-        seter._this = $(this);
-        //初始化图片   
-        $(this).children().each(function(i, data) {
-            $(data).css({
-                left: (seter.width * i)
-            });
-        });
-        return $.jask(seter);
-    }
-    $.jask = function(elements) {
-
-        if (elements.auto && elements._this.children().length > elements.showLength) {
-            $.jask.setTimes();
-        }
-    }
-    $.extend($.jask, {
-        leftMove: function() {
-            $("#h_pro_list").children().each(function(i, data) {
-
-                var _this = $(this);
-                var _left = _this.position().left;
-                _this.animate({
-                    left: _left - 175
-                }, 200, function() {
-                    if (i == 0) {
-                        _this.parent().append(_this);
-                        _this.last().css({
-                            left: (($("#h_pro_list").children().length - 1) * 175)
-                        });
-                    }
-
-
-                });
-
-            });
-
-        },
-        setTimes: function() {
-            window.setInterval("$.jask.leftMove()", 3000);
-        }
     });
 </script>
 
